@@ -8,7 +8,7 @@ class DataBase;
 class RowTable{
     friend class DataBase;
 private:
-    std::string owner_surname;
+    std::string_view owner_surname;
     size_t num_processors;
     std::string processor_type;
     size_t memory_sz;
