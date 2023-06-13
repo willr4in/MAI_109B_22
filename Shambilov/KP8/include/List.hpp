@@ -24,7 +24,7 @@ public:
     void pop_front();
     void insert(const iterator<T>&, const T& data);
     void erase(const iterator<T>&, const iterator<T>&);
-    void swaNodes(int k);
+    void swapNodes(int k);
 
     iterator<T> begin() const;
     iterator<T> end() const;
