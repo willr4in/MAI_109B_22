@@ -15,15 +15,14 @@ public:
 
     Node* getRoot() const;
 
-    void deleteTree(Node* node);
-    Node* createTree(const std::string& postfix);
-    Node* newNode(char data);
+    void clear(Node* node);
+    void create(const std::string& postfix);
     std::string doPostfix(const std::string& expression);
     void replace(Node* root);
 
     void printPostfix(Node* root) const;
     void printInfix(Node* root) const;
-    void printTree(Node* root, const size_t height = 0) const;
+    void print(Node* root, const size_t height = 0) const;
 };
 
 #endif //INC_24LAB_EXPRESSIONTREE_HPP
