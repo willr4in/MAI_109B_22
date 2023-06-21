@@ -13,10 +13,10 @@ public:
     Table() = default;
     ~Table() = default;
 
-    int partition(int start, int end);
+    int partition(size_t start, size_t end);
     void insertInfo(const T &key, const std::string &input_data);
     std::string binarySearch(const T &key);
-    void sortOfKhoar();
+    void sort();
 
     template<typename U>
     friend std::ostream &operator<<(std::ostream &out, Table<U> &line);
