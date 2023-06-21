@@ -7,7 +7,7 @@ void Table<T>::insertInfo(const T &key, const std::string &input_data) {
 }
 
 template<typename T>
-void Table<T>::sortOfKhoar() {
+void Table<T>::sort() {
     if (lines.empty()) {
         return;
     }
@@ -40,11 +40,16 @@ void Table<T>::sortOfKhoar() {
 }
 
 template<typename T>
-int Table<T>::partition(int start, int end) {
+int Table<T>::partition(size_t start, size_t end) {
     T pin = keys[end];
-    int i = start - 1;
 
-    for (int j = start; j <= end - 1; ++j) {
+    if (start == 0) {
+        throw std::range_error("Size_t cant be -");
+    }
+
+    size_t i = start - 1;
+
+    for (size_t j = start; j <= end - 1; ++j) {
         if (keys[j] <= pin) {
             ++i;
             std::swap(keys[i], keys[j]);
@@ -60,7 +65,7 @@ int Table<T>::partition(int start, int end) {
 
 template<typename T>
 std::string Table<T>::binarySearch(const T &key) {
-    sortOfKhoar();
+    sort();
     size_t left = 0, right = keys.size();
     while (left < right) {
         size_t mid = (left + right) / 2;
