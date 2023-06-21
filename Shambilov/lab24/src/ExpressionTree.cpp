@@ -6,33 +6,33 @@ ExpressionTree::ExpressionTree(): root(nullptr){}
 
 ExpressionTree::ExpressionTree(const std::string& expression){
     std::string postfix = doPostfix(expression);
-    root = createTree(postfix);
+    create(postfix);
 }
 
 ExpressionTree::~ExpressionTree() {
-    deleteTree(root);
+    clear(root);
 }
 
 Node* ExpressionTree::getRoot() const {
     return this->root;
 }
 
-size_t getPriority(char c) {
-    if (c == '-') {
+size_t getPriority(char c){
+    if (c == '+' || c == '-'){
         return 1;
-    }
-    else if (c == '*') {
+    } else if (c == '*' || c == '/'){
         return 2;
-    }
-    else if (c == '~') {
+    } else if (c == '^'){
         return 3;
+    } else if (c == '~'){
+        return 4;
     }
 
     return 0;
 }
 
-bool isOperator(char c) {
-    return  (c == '-' || c == '*');
+bool isOperator(char c){
+    return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
 }
 
 std::string ExpressionTree::doPostfix(const std::string& expression) {
@@ -73,16 +73,17 @@ std::string ExpressionTree::doPostfix(const std::string& expression) {
     return postfix;
 }
 
-void ExpressionTree::deleteTree(Node* node) {
+void ExpressionTree::clear(Node* node) {
     if (node == nullptr) return;
 
-    deleteTree(node->left);
-    deleteTree(node->right);
+    clear(node->left);
+    clear(node->right);
+    node = nullptr;
     delete node;
 }
 
-Node* ExpressionTree::createTree(const std::string& postfix) {
-    if (postfix.length() == 0) return nullptr;
+void ExpressionTree::create(const std::string& postfix) {
+    if (postfix.length() == 0) return;
 
     Stack<Node*> stack;
 
@@ -108,8 +109,6 @@ Node* ExpressionTree::createTree(const std::string& postfix) {
             stack.push(new Node(c));
         }
     }
-
-    return stack.top();
 }
 
 void ExpressionTree::printPostfix(Node* root) const {
@@ -136,38 +135,30 @@ void ExpressionTree::printInfix(Node* root) const {
     }
 }
 
-void ExpressionTree::printTree(Node* root, const size_t height) const {
+void ExpressionTree::print(Node* root, const size_t height) const {
     if (root != nullptr){
-        printTree(root->right, height + 1);
+        print(root->right, height + 1);
         for (size_t i = 0; i < height; ++i){
             std::cout << "\t";
         }
         std::cout << root->data << "\n";
-        printTree(root->left, height + 1);
+        print(root->left, height + 1);
     }
-}
-
-Node* ExpressionTree::newNode(char data) {
-    Node* node = new Node();
-    node->data = data;
-    node->left = nullptr;
-    node->right = nullptr;
-    return node;
 }
 
 void ExpressionTree::replace(Node* root) {
     if (root == nullptr) return;
 
     if (root->data == '*' && root -> left->data == 'a' && root->right->data == '-') {
-        Node* node1 = newNode('*');
-        node1->left = newNode('a');
-        node1->right = newNode(root->right->left->data);
+        Node* node1 = new Node('*');
+        node1->left = new Node('a');
+        node1->right = new Node(root->right->left->data);
 
-        Node* node2 = newNode('*');
-        node2->left = newNode('a');
-        node2->right = newNode(root->right->right->data);
+        Node* node2 = new Node('*');
+        node2->left = new Node('a');
+        node2->right = new Node(root->right->right->data);
 
-        Node* node3 = newNode('-');
+        Node* node3 = new Node('-');
         node3->left = node1;
         node3->right = node2;
 
