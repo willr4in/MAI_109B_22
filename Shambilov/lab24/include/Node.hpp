@@ -13,7 +13,7 @@ private:
 
 public:
     Node();
-    Node(const char data);
+    explicit Node(const char data);
     Node(const char data, Node* left, Node* right);
 };
 
