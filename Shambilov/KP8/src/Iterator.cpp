@@ -1,37 +1,38 @@
-#include "../include/Iterator.hpp"
-#include "../include/Node.hpp"
 #include "../include/List.hpp"
 
 template<typename T>
-iterator<T>::iterator() {
+Iterator<T>::Iterator() {
     this->currentNode = nullptr;
 }
 
 template<typename T>
-iterator<T>::iterator(const List<T>& list) {
+Iterator<T>::Iterator(const List<T>& list) {
     this->currentNode = list.start;
 }
 
 template<typename T>
-iterator<T>::iterator(node<T>* node) {
+Iterator<T>::Iterator(Node<T>* node) {
     this->currentNode = node;
 }
 
 template<typename T>
-iterator<T>& iterator<T>::operator++() {
+Iterator<T>& Iterator<T>::operator++() {
     this->currentNode = this->currentNode->nextNode;
     return *this;
 }
 
 template<typename T>
-T& iterator<T>::operator*() const {
+T& Iterator<T>::operator*() const {
     return this->currentNode->data;
 }
 
 template<typename T>
-iterator<T> iterator<T>::operator+(size_t size) {
-    iterator<T> returnIterator(*this);
+Iterator<T> Iterator<T>::operator+(size_t size) {
+    Iterator<T> returnIterator(*this);
     while (size != 0) {
+        if (returnIterator == nullptr and size != 0) {
+            throw std::range_error("Segfault");
+        }
         ++returnIterator;
         --size;
     }
@@ -39,11 +40,11 @@ iterator<T> iterator<T>::operator+(size_t size) {
 }
 
 template<typename T>
-bool iterator<T>::operator==(const iterator<T>& other) const {
+bool Iterator<T>::operator==(const Iterator<T>& other) const {
     return (other.currentNode == this->currentNode);
 }
 
 template<typename T>
-bool iterator<T>::operator!=(const iterator<T>& other) const {
+bool Iterator<T>::operator!=(const Iterator<T>& other) const {
     return !(*this == other);
 }
