@@ -1,13 +1,14 @@
 #ifndef KP8_LIST_HPP
 #define KP8_LIST_HPP
 #include "../include/Iterator.hpp"
+#include "../include/Node.hpp"
 #include <iostream>
+
 template<typename T>
 class List {
 private:
-    node<T>* start;
+    Node<T>* start;
 public:
-    friend class iterator<T>;
     List();
     List(const size_t, const T& = T());
     List(const List<T>&);
@@ -22,12 +23,12 @@ public:
     void emplace_front(const Args&...);
     void pop_back();
     void pop_front();
-    void insert(const iterator<T>&, const T& data);
-    void erase(const iterator<T>&, const iterator<T>&);
+    void insert(const Iterator<T>&, const T& data);
+    void erase(const Iterator<T>&, const Iterator<T>&);
     void swapNodes(int k);
 
-    iterator<T> begin() const;
-    iterator<T> end() const;
+    Iterator<T> begin() const;
+    Iterator<T> end() const;
 
     ~List();
 
