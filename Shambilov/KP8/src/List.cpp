@@ -2,7 +2,7 @@
 
 template<typename T>
 List<T>::List() {
-    this->start = new node<T>();
+    this->start = new Node<T>();
     this->start->nextNode = this->start;
 }
 
@@ -25,7 +25,7 @@ List<T>::List(const List<T>& other) {
 template<typename T>
 void List<T>::push_back(const T& value) {
     if (this->begin() == this->end()) {
-        this->begin().currentNode->nextNode = new node(value, this->start);
+        this->begin().currentNode->nextNode = new Node(value, this->start);
         this->start = this->begin().currentNode->nextNode;
         return;
     }
@@ -41,7 +41,7 @@ void List<T>::push_back(const T& value) {
 template<typename T>
 void List<T>::push_front(const T& value) {
     if (this->begin().currentNode->nextNode == this->start) {
-        this->begin().currentNode->nextNode = new node(value, this->start);
+        this->begin().currentNode->nextNode = new Node(value, this->start);
         this->start = this->begin().currentNode->nextNode;
         return;
     }
@@ -82,20 +82,20 @@ void List<T>::pop_front() {
         return;
     }
 
-    iterator<T> it = ++(this->begin());
+    Iterator<T> it = ++(this->begin());
     this->begin().currentNode->data = (++(this->begin())).currentNode->data;
     this->begin().currentNode->nextNode = (++(this->begin())).currentNode->nextNode;
     delete it.currentNode;
 }
 
 template<typename T>
-void List<T>::insert(const iterator<T>& it, const T& data) {
+void List<T>::insert(const Iterator<T>& it, const T& data) {
     it.currentNode->nextNode = new node(data, it.currentNode->nextNode);
 }
 
 template<typename T>
-void List<T>::erase(const iterator<T>& start, const iterator<T>& end) {
-    iterator<T> eraseIt = start;
+void List<T>::erase(const Iterator<T>& start, const Iterator<T>& end) {
+    Iterator<T> eraseIt = start;
     ++eraseIt;
     start.currentNode->nextNode = end.currentNode;
 
@@ -103,10 +103,14 @@ void List<T>::erase(const iterator<T>& start, const iterator<T>& end) {
         if (eraseIt == this->begin()) {
             this->start = end.currentNode;
         }
-        node<T>* deleteNode = eraseIt.currentNode;
+        Node<T>* deleteNode = eraseIt.currentNode;
         ++eraseIt;
         delete deleteNode;
+        deleteNode = nullptr;
     }
+
+    delete start;
+    start = nullptr;
 }
 
 template <typename T>
@@ -136,12 +140,12 @@ void List<T>::swapNodes(int k) {
 }
 
 template<typename T>
-iterator<T> List<T>::begin() const {
+Iterator<T> List<T>::begin() const {
     return iterator(*this);
 }
 
 template<typename T>
-iterator<T> List<T>::end() const {
+Iterator<T> List<T>::end() const {
     node<T>* endNode = this->start;
     while (endNode->nextNode != this->start) {
         endNode = endNode->nextNode;
@@ -151,8 +155,8 @@ iterator<T> List<T>::end() const {
 
 template<typename T>
 List<T>::~List() {
-    iterator<T> curIt = ++(this->begin());
-    iterator<T> delIt = curIt;
+    Iterator<T> curIt = ++(this->begin());
+    Iterator<T> delIt = curIt;
     while (curIt.currentNode != this->start) {
         ++curIt;
         delete delIt.currentNode;
@@ -163,7 +167,7 @@ List<T>::~List() {
 
 template<typename T>
 std::ostream& List<T>::operator<<(std::ostream& os) {
-    node<T>* currentNode = this->start;
+    Node<T>* currentNode = this->start;
     while (currentNode->nextNode != this->start) {
         os << currentNode->data << ' ';
         currentNode = currentNode->nextNode;
