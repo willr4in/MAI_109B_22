@@ -78,8 +78,8 @@ void ExpressionTree::clear(Node* node) {
 
     clear(node->left);
     clear(node->right);
-    node = nullptr;
     delete node;
+    node = nullptr;
 }
 
 void ExpressionTree::create(const std::string& postfix) {
