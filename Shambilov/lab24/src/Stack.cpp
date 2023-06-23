@@ -3,7 +3,7 @@
 
 template <typename T>
 Stack<T>::Stack(const std::initializer_list<T>& list) {
-    for (T elem: list){
+    for (const& T elem: list) {
         stack.push_back(elem);
     }
 }
