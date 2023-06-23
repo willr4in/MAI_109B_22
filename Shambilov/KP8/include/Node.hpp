@@ -3,14 +3,17 @@
 #include <iostream>
 #include "../include/Node.hpp"
 #include "../include/List.hpp"
+
 template<typename T>
-class node {
+class Node {
 private:
-    node<T>* nextNode;
+    Node<T>* nextNode;
     T data;
 public:
-    node(const T& = T(), node<T>* = nullptr);
+    Node() = default;
+    Node(const T& = T(), Node<T>* = nullptr);
+    ~Node() = default;
 };
-#include "../src/Node.cpp"
 
+#include "../src/Node.cpp"
 #endif //KP8_NODE_HPP
