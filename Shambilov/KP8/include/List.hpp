@@ -31,6 +31,7 @@ public:
     Iterator<T> end() const;
 
     ~List();
+};
 
 #include "../src/List.cpp"
 
