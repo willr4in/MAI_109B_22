@@ -1,7 +1,7 @@
 #include "../include/Node.hpp"
 
 template<typename T>
-node<T>::node(const T& value, node<T>* next) {
+Node<T>::Node(const T& value, Node<T>* next) {
     this->nextNode = next;
     this->data = value;
 }
