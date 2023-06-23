@@ -115,7 +115,7 @@ void List<T>::erase(const Iterator<T>& start, const Iterator<T>& end) {
 
 template <typename T>
 void List<T>::swapNodes(int k) {
-    if (k < 1 || k >= size - 1) {
+    if (k < 1) {
         return;
     }
 
@@ -132,7 +132,7 @@ void List<T>::swapNodes(int k) {
     next->next = current;
 
     if (prev == nullptr) {
-        head = next;
+        start = next;
     }
     else {
         prev->next = next;
