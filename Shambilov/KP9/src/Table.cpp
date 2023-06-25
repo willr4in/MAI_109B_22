@@ -15,17 +15,17 @@ void Table<T>::sort() {
         throw std::range_error("No one key founded");
     }
 
-    myVector<int> indexes;
+    myVector<size_t> indexes;
     indexes.push_back(0);
     indexes.push_back(lines.get_size() - 1);
 
     while (!indexes.empty()) {
-        int end = indexes.back();
+        size_t end = indexes.back();
         indexes.pop_back();
-        int start = indexes.back();
+        size_t start = indexes.back();
         indexes.pop_back();
 
-        int pinIndex = partition(start, end);
+        size_t pinIndex = partition(start, end);
 
         if (pinIndex - 1 > start) {
             indexes.push_back(start);
@@ -40,7 +40,7 @@ void Table<T>::sort() {
 }
 
 template<typename T>
-int Table<T>::partition(size_t start, size_t end) {
+size_t Table<T>::partition(size_t start, size_t end) {
     T pin = keys[end];
 
     if (start == 0) {
