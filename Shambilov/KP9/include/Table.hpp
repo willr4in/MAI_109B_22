@@ -13,7 +13,7 @@ public:
     Table() = default;
     ~Table() = default;
 
-    int partition(size_t start, size_t end);
+    size_t partition(size_t start, size_t end);
     void insertInfo(const T &key, const std::string &input_data);
     std::string binarySearch(const T &key);
     void sort();
