@@ -13,6 +13,8 @@ public:
     Node() = default;
     Node(const T& = T(), Node<T>* = nullptr);
     ~Node() = default;
+    T& get_data() const;
+    Node<T>* get_nextNode() const;
 };
 
 #include "../src/Node.cpp"
